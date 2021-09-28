@@ -1,18 +1,18 @@
-from src import app
+from src import app, token_authenticator
 from flask import request,make_response
 from src.models.users_model import users_model
 from flask_cors import CORS, cross_origin
-import jsonify
+import jwt
 
 uobj = users_model()
 
-@app.route("/login",methods=["post"])
+@app.route("/login",methods=["POST"])
 # @cross_origin()
 def login():
-    data=request.form
-    post_data=jsonify.data
-    print(data)
-    return uobj.login_model(post_data)
+    data=request.form.to_dict()
+    # post_data=jwt.data
+    # print(data)
+    return uobj.login_model(data)
 
 @app.route("/add_user",methods=["POST"])
 # @cross_origin()
@@ -21,7 +21,8 @@ def add_user():
     return uobj.add_user_model(data)
 
 @app.route("/read_user")
-# @cross_origin()
+@cross_origin()
+@token_authenticator()
 def read_user():
     return uobj.read_user_model()
 

@@ -4,7 +4,7 @@ import psycopg2
 from psycopg2.extras import RealDictCursor
 import jwt
 import datetime
-
+import json
 
 class users_model:
     def __init__(self):
@@ -18,8 +18,8 @@ class users_model:
             self.cur.execute("select * from users where email='"+post_data["email"]+"' AND password='"+post_data["password"]+"' AND status='a'")
             rows = self.cur.fetchall()
             if len(rows) > 0:
+                rows = json.loads(json.dumps(rows,sort_keys=True,default=str))
                 # print(rows)
-                # rows = json.dumps(rows,indent=4,sort_keys=True,default=str)
                 token = jwt.encode({"data":rows,"exp":datetime.datetime.utcnow()+datetime.timedelta(days=100)},"EncryptionKey")
                 return make_response({"payload":token},200)
             else:

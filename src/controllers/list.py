@@ -1,6 +1,8 @@
-from src import app
+from src import app,token_authenticator,token_data
 from flask import request,make_response
 from src.models.list_model import list_model
+from flask_cors import CORS, cross_origin
+
 
 obj=list_model()
 
@@ -10,6 +12,8 @@ def add_task_list():
     return obj.add_task_list_model(data)
 
 @app.route("/show_list")
+@cross_origin()
+@token_authenticator()
 def show_list():
     return obj.show_list_model()
 
