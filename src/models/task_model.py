@@ -11,7 +11,7 @@ class task_model:
 
     def add_task_model(self,post_data,list_id,id):
         try:
-            self.cur.execute("Insert into task(task,list_id,status,created_by) values('"+post_data["task"]+"',"+str(list_id)+",'s',"+str(id)+")")
+            self.cur.execute("Insert into task(task,list_id,status,created_by) values('"+post_data["task"]+"',"+str(list_id)+",'a',"+str(id)+")")
             return make_response({"success":"task created"},200)
 
         except Exception as e:
@@ -36,4 +36,11 @@ class task_model:
         except Exception as e:
             return make_response({"error":str(e)},500)
 
+def update_task_model(self):
+        try:
+            self.cur.execute("UPDATE from task where list_id="+task_id)
+            return make_response({"success":"list_deleted"},200)
+
+        except Exception as e:
+            return make_response({"error":str(e)},500)
 

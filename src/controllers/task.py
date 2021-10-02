@@ -24,4 +24,8 @@ def read_task():
 def delete_task(task_id):
     return obj.delete_task_model(task_id)
 
+@app.route("/task/update_task")
+def update_task():
+    return obj.update_task_model()
+
 

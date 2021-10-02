@@ -9,12 +9,9 @@ class list_model:
         self.conn.set_session(autocommit=True)
         self.cur = self.conn.cursor(cursor_factory=RealDictCursor)
 
-    def add_task_list_model(self,post_data):
+    def add_task_list_model(self,post_data,id):
         try:
-            self.cur.execute("INSERT INTO list(title,data,status,created_by)values('"+post_data["title"]+"','"+post_data["data"]+"','s',"+post_data["created_by"]+")") 
-            # rows = self.cur.fetchall()n
-            # print(post_data["created_by"])
-            #print("INSERT INTO list(data,status,created_by)values('"+post_data["data"]+"','"+post_data["status"]+"',"+post_data["created_by"]+")")
+            self.cur.execute("INSERT INTO list(title,status,created_by)values('"+post_data["title"]+"','s',"+str(id)+")") 
             return make_response({"success":"list_created"},200)
 
         except Exception as e:
