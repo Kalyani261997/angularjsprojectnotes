@@ -15,13 +15,14 @@ class task_model:
             return make_response({"success":"task created"},200)
 
         except Exception as e:
-            print(str(e))
+            # print(str(e))
             return make_response({"error":str(e)},500)
 
-    def read_task_model(self):
+    def read_task_model(self,list_id):
         try:
-            self.cur.execute("select * from task")
+            self.cur.execute("select * from task where list_id="+list_id)
             select=self.cur.fetchall()
+            print(select)
             return make_response({"data":select},200)
 
         except Exception as e:
@@ -36,7 +37,7 @@ class task_model:
         except Exception as e:
             return make_response({"error":str(e)},500)
 
-def update_task_model(self):
+def update_task_model(self,task_id):
         try:
             self.cur.execute("UPDATE from task where list_id="+task_id)
             return make_response({"success":"list_deleted"},200)

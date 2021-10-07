@@ -10,22 +10,31 @@ obj=task_model()
 @cross_origin()
 @token_authenticator()
 def add_task(list_id):
-    data=request.form
-    return obj.add_task_model(data,list_id,token_data["data"][0]["id"])
+    try:
+        data=request.form.to_dict()
+        return obj.add_task_model(data,list_id,token_data["data"][0]["id"])
+    except Exception as e:
+        print(str(e))
+        return make_response({"error":str(e)},500)
 
-@app.route("/task/read_task")
+@app.route("/task/read_task/<list_id>")
 @cross_origin()
 @token_authenticator()
-def read_task():
-    print(token_data["data"][0]["id"])
-    return obj.read_task_model()
+def read_task(list_id):
+    try:
+        print(token_data["data"][0]["id"])
+        return obj.read_task_model(list_id)
+        
+    except Exception as e:
+        print(str(e))
+        return make_response({"error":str(e)},500)
 
 @app.route("/task/delete_task/<task_id>")
 def delete_task(task_id):
     return obj.delete_task_model(task_id)
 
-@app.route("/task/update_task")
-def update_task():
-    return obj.update_task_model()
+@app.route("/task/update_task/<task_id>")
+def update_task(task_id):
+    return obj.update_task_model(task_id)
 
 
