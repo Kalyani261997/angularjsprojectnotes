@@ -15,7 +15,7 @@ class task_model:
             return make_response({"success":"task created"},200)
 
         except Exception as e:
-            # print(str(e))
+            print(str(e))
             return make_response({"error":str(e)},500)
 
     def read_task_model(self,list_id):

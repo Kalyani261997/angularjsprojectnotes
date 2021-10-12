@@ -54,6 +54,14 @@ class users_model:
         except Exception as e:
             return make_response({"error":str(e)},500)
 
+    def update_user_model(self,post_data,id):
+        try:
+            self.cur.execute("UPDATE users set status='a', full_name='"+post_data["full_name"]+"', email='"+post_data["email"]+"',phone="+post_data["phone"]+",password='"+post_data["password"]+"' WHERE id="+str(id))
+            return make_response({"success":"user updated"},200)
+        except Exception as e:
+            return make_response({"error":str(e)},500)
+
+            
     def delete_user_model(self,id):
         try:
             self.cur.execute("delete from users where id="+id)

@@ -12,6 +12,7 @@ obj=task_model()
 def add_task(list_id):
     try:
         data=request.form.to_dict()
+        print(data)
         return obj.add_task_model(data,list_id,token_data["data"][0]["id"])
     except Exception as e:
         print(str(e))
